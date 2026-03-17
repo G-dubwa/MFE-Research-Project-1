@@ -1,0 +1,139 @@
+\documentclass[12pt, a4paper]{article}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{appendix}
+\usepackage{authblk}
+\usepackage{titlesec}
+\usepackage{microtype}
+
+% Figures are in paper/figures/
+\graphicspath{{figures/}}
+
+% ============================================================
+% CODE LISTING STYLE
+% ============================================================
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{orange},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    frame=single,
+    breaklines=true,
+    captionpos=b,
+    showstringspaces=false,
+    tabsize=4,
+}
+\lstset{style=python}
+
+% ============================================================
+% THEOREM ENVIRONMENTS
+% ============================================================
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+% ============================================================
+% HYPERREF SETUP
+% ============================================================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=green!50!black,
+    urlcolor=blue!70!black,
+}
+
+% ============================================================
+% TITLE
+% ============================================================
+\title{%
+    {\large Master of Financial Engineering: Research}\\[0.5em]
+    \textbf{Constructing Hedge Portfolios with Neural Networks}%
+}
+
+\author[1]{Micaela TODO-SURNAME}
+\author[1]{Kaiden TODO-SURNAME}
+\author[1]{Siphelele TODO-SURNAME}
+\author[1]{Glasson Osborne}
+
+\affil[1]{African Institute of Financial Markets and Risk Management}
+
+\date{\today}
+
+% ============================================================
+% DOCUMENT
+% ============================================================
+\begin{document}
+
+\maketitle
+
+% ---------- Abstract ----------
+\input{abstract/abstract}
+
+\bigskip
+\tableofcontents
+\newpage
+
+% ---------- Main chapters ----------
+\input{introduction/introduction}
+\input{literature_review/literature_review}
+\input{methods/methods}
+\input{results/results}
+\input{conclusion/conclusion}
+
+% ---------- References ----------
+\newpage
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% ---------- Author Contribution Statement ----------
+\newpage
+\section*{Author Contribution Statement}
+\addcontentsline{toc}{section}{Author Contribution Statement}
+
+The following statements describe each author's contributions according to the
+\href{https://credit.niso.org/}{CRediT (Contributor Roles Taxonomy)}:
+
+\begin{description}[leftmargin=2.5cm, style=nextline]
+    \item[\textbf{Micaela TODO-SURNAME}]
+        TODO: fill in CRediT roles.
+    \item[\textbf{Kaiden TODO-SURNAME}]
+        TODO: fill in CRediT roles.
+    \item[\textbf{Siphelele TODO-SURNAME}]
+        TODO: fill in CRediT roles.
+    \item[\textbf{Glasson Osborne}]
+        TODO: fill in CRediT roles.
+\end{description}
+
+All authors read and approved the final manuscript.
+
+% ---------- Appendices ----------
+\newpage
+\begin{appendices}
+    \input{appendices/appendix_code}
+    \input{appendices/appendix_ai}
+\end{appendices}
+
+\end{document}

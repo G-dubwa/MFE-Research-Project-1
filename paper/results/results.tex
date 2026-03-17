@@ -1,0 +1,117 @@
+% ============================================================
+% SECTION 4: RESULTS AND ANALYSIS
+% ============================================================
+% Target: 1 500--2 000 words.
+%
+% Cover:
+%   4.1  Experimental Setup (parameters table)
+%   4.2  Learning Curve
+%   4.3  Implied Premium vs. Black-Scholes Price
+%   4.4  Profit-and-Loss Distribution (hedged vs. unhedged)
+%   4.5  Hedge Ratios vs. Black-Scholes Delta (sample paths)
+%   4.6  Extensions (add subsections as needed)
+% ============================================================
+
+\section{Results and Analysis}
+\label{sec:results}
+
+% ---- 4.1 Experimental Setup -----------------------------------------
+\subsection{Experimental Setup}
+\label{subsec:setup}
+
+Table~\ref{tab:params} summarises the baseline model parameters used in all experiments.
+
+\begin{table}[H]
+    \centering
+    \caption{Baseline experiment parameters.}
+    \label{tab:params}
+    \begin{tabular}{lcc}
+        \toprule
+        Parameter & Symbol & Value \\
+        \midrule
+        Risk-free rate          & $r$       & $0.00$ \\
+        Volatility              & $\sigma$  & $0.40$ \\
+        Initial asset price     & $S_0$     & $1.00$ \\
+        Strike                  & $K$       & $0.90$ \\
+        Maturity (years)        & $T$       & $0.50$ \\
+        Rebalancing steps       & $N$       & $125$  \\
+        Training paths          & $M$       & $10^5$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The Black--Scholes price for these parameters is $C_0^{\mathrm{BS}} = 0.16411$.
+
+% ---- 4.2 Learning Curve ---------------------------------------------
+\subsection{Learning Curve}
+\label{subsec:learning}
+
+% TODO: Discuss convergence behaviour, final training/validation loss,
+% any instability or plateauing, and the number of epochs required.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{learning_curve.pdf}
+    \caption{Training and validation loss as a function of epoch.}
+    \label{fig:learning_curve}
+\end{figure}
+
+% ---- 4.3 Implied Premium --------------------------------------------
+\subsection{Implied Premium}
+\label{subsec:premium}
+
+% TODO: Report the learned premium pi and compare to the BS price.
+% Explain why they should agree (MSE loss, complete market, small dt, no frictions)
+% and discuss any observed discrepancy.
+
+The network converged to a premium of $\hat{\pi} = \ldots$, compared with the
+theoretical value $C_0^{\mathrm{BS}} = 0.16411$.
+
+% ---- 4.4 Profit-and-Loss Distribution --------------------------------
+\subsection{Profit-and-Loss Distribution}
+\label{subsec:pnl}
+
+% TODO: Report summary statistics: mean, std, 5th percentile (CVaR95), max loss.
+% Compare hedged vs. unhedged distributions -- the key result.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{pnl_hedged.pdf}
+        \caption{Hedged portfolio P\&L.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{pnl_unhedged.pdf}
+        \caption{Unhedged portfolio P\&L.}
+    \end{subfigure}
+    \caption{Profit-and-loss distributions on the test set ($10^4$ paths).}
+    \label{fig:pnl}
+\end{figure}
+
+% ---- 4.5 Hedge Ratios vs. Black-Scholes Delta -----------------------
+\subsection{Hedge Ratios vs.\ Black--Scholes Delta}
+\label{subsec:deltas}
+
+% TODO: Compare the learned deltas to the theoretical BS delta along sample
+% paths. Discuss ITM vs. OTM behaviour and any discrepancies.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{path_itm.pdf}
+        \caption{In-the-money path.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{path_otm.pdf}
+        \caption{Out-of-the-money path.}
+    \end{subfigure}
+    \caption{Hedge portfolio value, Black--Scholes delta hedge, and option payoff
+             along two sample paths.}
+    \label{fig:paths}
+\end{figure}
+
+% ---- 4.6 Extensions (add subsections as needed) ---------------------
+% \subsection{Extension: [Title]}
+% \label{subsec:extension}

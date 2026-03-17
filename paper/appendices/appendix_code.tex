@@ -1,0 +1,124 @@
+% ============================================================
+% APPENDIX A: KEY CODE SNIPPETS
+% ============================================================
+% Present the code that is CRUCIAL to building and training your
+% neural network(s). Provide careful explanations and comments.
+% Full source files are in the accompanying .zip archive.
+% ============================================================
+
+\section{Key Code Snippets}
+\label{app:code}
+
+This appendix presents the essential code used to build, train, and evaluate the neural
+network hedging model. All code was written in Python~3 using Keras~3 with a TensorFlow
+backend. Full source files are provided in the accompanying \texttt{.zip} archive.
+
+% ---- A.1 Monte Carlo Path Simulation --------------------------------
+\subsection*{A.1\quad Monte Carlo Path Simulation}
+
+The function below simulates $M$ asset price paths of length $N+1$ under the
+Black--Scholes model, using the exact log-normal discretisation to avoid Euler
+approximation bias.
+
+\begin{lstlisting}[caption={Black--Scholes Monte Carlo path simulation.},
+                   label={lst:mc}]
+import numpy as np
+
+def simulate_bs_paths(S0, r, sigma, T, N, M, seed=42):
+    """
+    Simulate M risk-neutral GBM paths, each of length N+1.
+
+    Parameters
+    ----------
+    S0    : float -- initial asset price
+    r     : float -- continuously compounded risk-free rate
+    sigma : float -- volatility
+    T     : float -- maturity in years
+    N     : int   -- number of time steps
+    M     : int   -- number of paths
+
+    Returns
+    -------
+    S : ndarray of shape (M, N+1)
+    """
+    rng = np.random.default_rng(seed)
+    dt  = T / N
+    Z   = rng.standard_normal((M, N))          # iid N(0,1) increments
+
+    # Exact log-normal discretisation (no Euler bias)
+    log_inc = (r - 0.5 * sigma**2) * dt + sigma * np.sqrt(dt) * Z
+
+    log_S = np.concatenate(
+        [np.full((M, 1), np.log(S0)),
+         np.log(S0) + np.cumsum(log_inc, axis=1)],
+        axis=1
+    )
+    return np.exp(log_S)                        # shape: (M, N+1)
+\end{lstlisting}
+
+% ---- A.2 Neural Network Definition ----------------------------------
+\subsection*{A.2\quad Neural Network Definition}
+
+% TODO: Replace with your actual architecture and add line-by-line comments.
+
+\begin{lstlisting}[caption={Deep hedging network architecture.},
+                   label={lst:model}]
+import keras
+from keras import layers
+
+def build_hedging_network(N, hidden_units=64, n_layers=2,
+                          activation='relu'):
+    """
+    Build the deep hedging network for N rebalancing steps.
+
+    Architecture: for each time step n, a sub-network maps the
+    current asset price S_n to the hedge ratio delta_n.
+    The premium pi is a single trainable scalar.
+
+    Parameters
+    ----------
+    N            : int -- number of rebalancing steps
+    hidden_units : int -- units per hidden layer
+    n_layers     : int -- number of hidden layers per sub-network
+    activation   : str -- activation function for hidden layers
+
+    Returns
+    -------
+    model : keras.Model
+    """
+    # TODO: implement and return the model.
+    pass
+\end{lstlisting}
+
+% ---- A.3 Training ---------------------------------------------------
+\subsection*{A.3\quad Training}
+
+% TODO: Replace with your actual training code and add comments.
+
+\begin{lstlisting}[caption={Model compilation and training.},
+                   label={lst:training}]
+# Compile with MSE loss and Adam optimiser
+model.compile(
+    optimizer=keras.optimizers.Adam(learning_rate=1e-3),
+    loss='mse',
+)
+
+# Callbacks: stop early if val_loss stops improving; save best weights
+callbacks = [
+    keras.callbacks.EarlyStopping(
+        monitor='val_loss', patience=10, restore_best_weights=True
+    ),
+    keras.callbacks.ModelCheckpoint(
+        '../../data/best_model.keras', save_best_only=True
+    ),
+]
+
+# Train
+history = model.fit(
+    X_train, y_train,
+    batch_size=256,
+    epochs=100,
+    validation_data=(X_val, y_val),
+    callbacks=callbacks,
+)
+\end{lstlisting}

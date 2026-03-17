@@ -1,0 +1,118 @@
+% ============================================================
+% SECTION 3: MODELS AND METHODS
+% ============================================================
+% Target: 1 500--2 000 words.
+%
+% Cover:
+%   3.1  Problem Formulation (self-financing portfolio, loss function)
+%   3.2  Asset Price Models  (Black-Scholes; add Heston etc. if applicable)
+%   3.3  Neural Network Architecture
+%   3.4  Training Procedure
+% ============================================================
+
+\section{Models and Methods}
+\label{sec:methods}
+
+% ---- 3.1 Problem Formulation ----------------------------------------
+\subsection{Problem Formulation}
+\label{subsec:problem}
+
+Consider a European-style derivative security with payoff $\Phi(S_T)$ at maturity $T$,
+written on a single underlying asset with price process $(S_t)_{t \ge 0}$. A seller of
+the derivative charges a premium $\pi$ and seeks a self-financing, discretely-rebalanced
+hedging strategy $(\delta_n)_{n=0}^{N-1}$ that minimises the discrepancy between the
+terminal portfolio value $V_N$ and the payoff $\Phi(S_N)$.
+
+Trading occurs at dates $0 = t_0 < t_1 < \cdots < t_N = T$. At each time $t_n$ the
+hedger holds $\delta_n$ units of the asset; $\delta_n$ must be
+$\mathcal{F}_{t_n}$-measurable (no look-ahead). The self-financing condition gives the
+discounted portfolio value
+\begin{equation}
+    \bar{V}_n = \pi + \sum_{j=0}^{n-1} \delta_j \,\Delta\bar{S}_j,
+    \qquad \Delta\bar{S}_j := \bar{S}_{j+1} - \bar{S}_j,
+    \label{eq:portfolio}
+\end{equation}
+where $\bar{S}_n = S_n e^{-r t_n}$ is the discounted asset price and $r$ is the
+continuously compounded risk-free rate.
+
+The hedging objective is to minimise the loss function
+\begin{equation}
+    \mathcal{L}(\mathbf{w}) := \frac{1}{M}\sum_{m=1}^{M}
+        \Bigl(\Phi\!\left(S_N^{(m)}\right) - V_N^{(m)}\Bigr)^2,
+    \label{eq:loss}
+\end{equation}
+over the neural network weights $\mathbf{w}$, where $M$ is the number of simulated
+paths.
+
+% TODO: Mention alternative loss functions if explored (CVaR, entropic risk, etc.)
+
+% ---- 3.2 Asset Price Models -----------------------------------------
+\subsection{Asset Price Models}
+\label{subsec:models}
+
+\subsubsection{Black--Scholes Model}
+\label{subsubsec:bs}
+
+Under the risk-neutral measure $\mathbb{Q}$, the asset price satisfies
+\begin{equation}
+    \mathrm{d}S_t = r S_t \,\mathrm{d}t + \sigma S_t \,\mathrm{d}W_t,
+    \label{eq:bs_sde}
+\end{equation}
+where $\sigma > 0$ is the constant volatility and $(W_t)$ is a standard Brownian
+motion. The exact discretisation used in simulation is
+\[
+    S_{t_{n+1}} = S_{t_n} \exp\!\Bigl[\Bigl(r - \tfrac{1}{2}\sigma^2\Bigr)\Delta t
+        + \sigma\sqrt{\Delta t}\,Z_{n+1}\Bigr], \qquad Z_{n+1}\sim\mathcal{N}(0,1).
+\]
+The closed-form call price and delta are
+\begin{align}
+    C_0^{\mathrm{BS}} &= S_0 \mathcal{N}(d_+) - K e^{-rT}\mathcal{N}(d_-),
+    \label{eq:bs_price}\\
+    \delta_t^{\mathrm{BS}} &= \mathcal{N}(d_+),
+    \label{eq:bs_delta}
+\end{align}
+where $d_{\pm} = \bigl[\ln(S_0/K) + (r \pm \tfrac{1}{2}\sigma^2)T\bigr]/(\sigma\sqrt{T})$
+and $\mathcal{N}$ denotes the standard normal CDF. These serve as the theoretical
+benchmark against which we compare the neural network hedge.
+
+% TODO: Add further models if applicable, e.g.:
+% \subsubsection{Heston Stochastic Volatility Model}
+% \label{subsubsec:heston}
+
+% ---- 3.3 Neural Network Architecture --------------------------------
+\subsection{Neural Network Architecture}
+\label{subsec:architecture}
+
+% TODO: Describe your network architecture in detail.
+%   - Type: feedforward / recurrent / weight-sharing.
+%   - Inputs at each t_n (e.g. S_n, t_n, moneyness K/S_n, time-to-maturity).
+%   - Number of hidden layers, units per layer, activation functions.
+%   - How the premium pi is parameterised (trainable scalar / output of a sub-network).
+%   - Any constraints on deltas (e.g. clipping, sigmoid output for bounded strategies).
+%   - Reference your architecture diagram here if you include one.
+
+Our neural network, inspired by the Deep Hedging framework of \citet{BuehlerEtAl2019},
+consists of $N$ sub-networks sharing the same architecture but with independent weights.
+At each time step $t_n$, sub-network $\mathcal{N}^{(n)}$ receives the asset price $S_n$
+as input and outputs the hedge ratio $\delta_n$. The premium $\pi$ is a separate
+trainable scalar initialised at zero.
+
+% TODO: Fill in architectural specifics (layers, units, activations).
+
+% ---- 3.4 Training Procedure -----------------------------------------
+\subsection{Training Procedure}
+\label{subsec:training}
+
+% TODO: Describe:
+%   - Number of paths M, time steps N, batch size, number of epochs.
+%   - Optimiser (Adam) and learning rate schedule.
+%   - Validation / early stopping / regularisation (dropout, L2, etc.).
+%   - Hardware and software (Python version, Keras/TF/PyTorch, Google Colab / local GPU).
+%   - How model weights are saved and loaded (checkpointing).
+
+Training was performed by minimising~\eqref{eq:loss} via the Adam optimiser
+\citep{KingmaBa2015} with initial learning rate $\eta = \ldots\,$. We generated
+$M = 10^5$ paths with $N = 125$ time steps (approximately daily rebalancing over
+$T = 0.5$ years). Paths were divided into training ($80\%$), validation ($10\%$),
+and test ($10\%$) sets. The network was implemented in Python using Keras
+\citep{Chollet2026} with a TensorFlow backend.

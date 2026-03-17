@@ -1,0 +1,40 @@
+% ============================================================
+% SECTION 1: INTRODUCTION
+% ============================================================
+% Target: 600--800 words.
+%
+% Cover:
+%   - Why hedging matters (risk transfer, market makers, etc.)
+%   - Classical approach: model-based delta hedging and its limitations
+%     (model misspecification, discrete rebalancing, transaction costs).
+%   - Motivation for a data-driven / model-free approach.
+%   - State your research question(s) explicitly.
+%   - Brief outline of the paper.
+% ============================================================
+
+\section{Introduction}
+\label{sec:introduction}
+
+The problem of hedging financial derivatives lies at the heart of modern quantitative
+finance. A seller of a derivative security, such as a European call option, faces the
+risk that the payoff owed at maturity may exceed the premium received. The classical
+approach to managing this risk is \emph{delta hedging}, pioneered by
+\citet{BlackScholes1973} and \citet{Merton1973}: one dynamically trades the underlying
+asset so that, in continuous time and under the model's assumptions, the hedging error
+is identically zero.
+
+In practice, however, continuous trading is impossible, all models are misspecified to
+some degree, and every trade incurs a transaction cost. These frictions motivate the
+question: \emph{can neural networks learn a near-optimal hedging strategy directly from
+simulated (or historical) price data, without explicit knowledge of the underlying
+model?}
+
+This paper addresses that question. Specifically, \ldots
+
+% TODO: State research questions explicitly here.
+
+\paragraph{Outline.} The remainder of the paper is organised as follows.
+Section~\ref{sec:litreview} reviews the relevant literature.
+Section~\ref{sec:methods} describes the models and neural network architecture.
+Section~\ref{sec:results} presents and analyses our results.
+Section~\ref{sec:conclusion} concludes.
