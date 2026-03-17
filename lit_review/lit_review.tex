@@ -1,11 +1,36 @@
 \documentclass[12pt, a4paper]{article}
 
 % ============================================================
-% PACKAGES
+% BROAD LITERATURE REVIEW
+% Project: Constructing Hedge Portfolios with Neural Networks
+% Purpose: Broad, critical literature review (3 000--4 000 words)
+%
+% TEAM STRATEGY
+% - Assign one lead per major section.
+% - Keep one editor responsible for tone, notation, transitions, deduplication.
+% - Do not allow each subsection to become a disconnected paper summary.
+%
+% HOW TO WRITE EACH SUBSECTION
+% 1. Define the theme or branch of the literature.
+% 2. Explain what problem the branch is solving.
+% 3. Compare the key papers.
+% 4. State strengths, assumptions, and weaknesses.
+% 5. Explain what remains unresolved.
+%
+% DO NOT WRITE LIKE THIS:
+%   "Paper A did X. Paper B did Y. Paper C did Z."
+%
+% INSTEAD WRITE LIKE THIS:
+%   "Recent work falls into two main camps... The first... The second...
+%    The key difference is... The main limitation is..."
 % ============================================================
-\usepackage[margin=2.5cm]{geometry}
+
+% ------------------------------------------------------------
+% PACKAGES
+% ------------------------------------------------------------
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage{amsmath, amssymb}
 \usepackage{hyperref}
 \usepackage{natbib}
@@ -16,6 +41,8 @@
 \usepackage{xcolor}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
 \usepackage{enumitem}
 \usepackage{mdframed}   % for the assignment boxes
 
@@ -25,6 +52,8 @@
     citecolor=green!50!black,
     urlcolor=blue!70!black,
 }
+
+\setstretch{1.12}
 
 % ---- Coloured assignment box ----
 \newmdenv[
@@ -42,7 +71,8 @@
 % ---- Utility macros ----
 \newcommand{\TODO}[1]{\textcolor{red}{[TODO: #1]}}
 \newcommand{\paperlink}[2]{\href{#2}{#1}}
-\newcommand{\crit}[1]{\medskip\noindent\textbf{Critical point:} #1\medskip}
+\newcommand{\crit}[1]{\noindent\textbf{Critical point.} #1}
+\newcommand{\litquestion}[1]{\noindent\textbf{Question to answer.} \emph{#1}}
 
 % ============================================================
 % TITLE
@@ -72,23 +102,45 @@
 % ============================================================
 
 % ============================================================
-% INTERNAL WRITING GUIDE  (delete before submission if desired)
+% INTERNAL GUIDE  (delete before submission if desired)
 % ============================================================
 
-\section*{Internal writing guide}
+\section*{Internal guide for the group}
 
-This review should answer the following questions:
+This document is designed to help produce an \emph{excellent} literature review rather
+than a merely adequate one. The central aim is to explain, evaluate, and organise the
+literature on neural networks for derivative hedging in a way that makes the research
+gap and the logic of the project obvious.
 
+\textbf{Core writing principle:} the review must be \emph{critical and taxonomic}. That
+means the literature should be organised by themes, conceptual differences, modelling
+assumptions, and practical implications --- not by publication date.
+
+\textbf{Core questions this review should answer:}
 \begin{enumerate}[label=\arabic*.]
-    \item Why is hedging difficult in practice, even if Black--Scholes gives a clean theoretical benchmark?
-    \item How does the literature move from pricing models to directly learned hedging policies?
-    \item What exactly is ``deep hedging'', and what problem is it trying to solve?
-    \item In which settings do neural methods appear to outperform classical hedging benchmarks?
-    \item Are those gains due to model flexibility, market frictions, alternative objectives, or unrealistic simulation design?
-    \item What gap remains that motivates our own project?
+    \item Why is hedging difficult in practice, even though classical theory provides
+          elegant benchmarks such as Black--Scholes delta hedging?
+    \item How did the literature move from pricing networks to direct hedging networks?
+    \item What exactly is meant by \emph{deep hedging}, and why has it become the
+          central modern framework?
+    \item Under what conditions do neural approaches appear to outperform classical
+          benchmarks?
+    \item Are those improvements economically meaningful and robust, or are they
+          sometimes driven by stylised simulation choices?
+    \item What unresolved question or gap motivates the present project?
 \end{enumerate}
 
-\textbf{Rule:} every subsection should contain comparison, not just summary.
+\textbf{Recommended reading priority:}
+\begin{enumerate}[label=\arabic*.]
+    \item \citet{RufWang2020}
+    \item \citet{BuehlerEtAl2019}
+    \item \citet{HutchinsonLoPoggio1994}
+    \item \citet{GarciaGencay2000}
+    \item \citet{RufWang2022}
+    \item \citet{DuEtAl2020}
+    \item \citet{HorvathTeichmannZuric2021}
+    \item \citet{Cont2025}
+\end{enumerate}
 
 % ============================================================
 % DIVISION OF LABOUR TABLE  (keep or delete)
@@ -99,16 +151,14 @@ This review should answer the following questions:
 \centering
 \begin{tabularx}{\textwidth}{@{}l l X@{}}
 \toprule
-Section & Lead author & Notes / papers to cover \\
+Section & Lead author & Notes / papers \\
 \midrule
-1. Introduction and motivation & \TODO{Name} & Why hedging is hard; scope of review \\
-2. Classical foundations & \TODO{Name} & Black--Scholes, incomplete markets, quadratic hedging \\
-3. Pricing networks to hedging networks & \TODO{Name} & Hutchinson--Lo--Poggio; Garcia--Gen\c{c}ay; direct hedge outputs \\
-4. Deep hedging core framework & \TODO{Name} & Buehler et al.; architecture, objective, frictions \\
-5. Recent extensions & \TODO{Name} & rough vol, RL, frictions, data-driven hedging \\
-6. Comparative synthesis & \TODO{Name} & benchmark fairness, simulation dependence, practical limits \\
-7. Research gap & \TODO{Name} & connect to our project \\
-Editor / harmonisation & \TODO{Name} & final tone, notation, deduplication \\
+Introduction and motivation    & \TODO{Name} & Set scope; explain why deep hedging matters \\
+Classical foundations          & \TODO{Name} & Black--Scholes, incomplete markets, quadratic hedging \\
+Pricing vs hedging networks    & \TODO{Name} & HLP 1994, Garcia--Gen\c{c}ay 2000, conceptual transition \\
+Deep hedging core              & \TODO{Name} & Buehler et al.\ 2019, Ruf--Wang 2022 \\
+Extensions and synthesis       & \TODO{Name} & DRL, rough vol, data-driven hedging, critique \\
+Final editor                   & \TODO{Name} & Tone, notation, transitions, deduplication \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -117,9 +167,9 @@ Editor / harmonisation & \TODO{Name} & final tone, notation, deduplication \\
 \newpage
 
 % ============================================================
-% 1. INTRODUCTION AND MOTIVATION
+% 1. INTRODUCTION AND SCOPE
 % ============================================================
-\section{Introduction and Motivation}
+\section{Introduction and Scope}
 \label{sec:intro}
 
 \begin{assignbox}
@@ -127,47 +177,45 @@ Editor / harmonisation & \TODO{Name} & final tone, notation, deduplication \\
 \end{assignbox}
 
 % TODO:
-% - Why is derivative hedging important? (risk management, market makers, etc.)
-% - What are the limitations of classical model-based approaches that motivate
-%   a machine-learning alternative?
-% - Describe the taxonomy used to organise this review (NOT chronological).
-% - Outline the structure of the paper.
+% - Define the scope of the literature review.
+% - State that the emphasis is on hedging.
+% - Explain that the review is broad but organised around a taxonomy.
+% - Signal that the final section will identify the gap motivating the project.
 
-Deep learning has become an increasingly visible tool in mathematical finance,
-including derivative pricing, risk management, and hedging. Among these applications,
-hedging is particularly important because it sits at the interface between theoretical
-finance and practical trading: a hedging rule must perform under uncertainty, discrete
-trading, model error, and---in realistic settings---transaction costs and constraints.
+Deep learning has become increasingly prominent in mathematical finance, including
+applications to derivative pricing, calibration, risk management, and hedging. Among
+these applications, hedging is especially important because it lies at the intersection
+of theory and practice. A hedging rule must perform not merely in an idealised model,
+but under discrete trading, model uncertainty, frictions, and often incomplete market
+structure. This creates a natural environment in which flexible function approximators
+such as neural networks may be useful.
 
-Classical derivative theory provides a natural benchmark. In complete and frictionless
-models such as Black--Scholes \citep{BlackScholes1973, Merton1973}, a contingent claim
-can be replicated exactly by continuous-time dynamic trading, yielding a closed-form
-pricing and hedging framework. However, the assumptions required for perfect
-replication are restrictive. In practice, hedging is discrete, transaction costs
-matter, volatility is not constant, and the true data-generating mechanism is unknown.
-These features motivate the study of imperfect hedging and, more recently,
-data-driven or learning-based hedge construction.
+This literature review focuses on neural-network methods for derivative hedging, with
+particular emphasis on the modern \emph{deep hedging} paradigm. Rather than presenting
+the literature chronologically, we organise it into conceptual branches. We begin with
+the classical benchmark of complete-market replication and the practical reasons why
+imperfect hedging arises. We then distinguish early neural-network methods for pricing
+and sensitivity estimation from later approaches that learn hedge policies directly.
+The central section of the review evaluates the deep hedging framework introduced by
+\citet{BuehlerEtAl2019}, after which we discuss recent extensions involving
+reinforcement learning, rough volatility, richer architectures, frictions, and
+data-driven market generation. The review concludes with a comparative synthesis and a
+statement of the research gap relevant to the present project.
 
-This review surveys the literature on deep learning for derivative hedging, with
-particular emphasis on the transition from neural networks used for \emph{pricing} to
-neural networks used for \emph{direct hedge generation}. Rather than presenting papers
-in chronological order, we organise the literature into thematic groups: foundational
-approaches to imperfect hedging; early neural-network methods for pricing and
-sensitivity estimation; modern deep hedging frameworks that learn trading policies
-directly; and recent extensions involving reinforcement learning, rough volatility,
-market frictions, and data-driven scenario generation.
+The goal is not simply to catalogue papers, but to assess what the literature has
+actually established. In particular, a strong review should ask whether neural methods
+offer genuine economic advantages over classical hedging benchmarks, under what
+assumptions these gains appear, and whether the evidence is robust to more realistic
+data and benchmark choices. This critical perspective is essential because a literature
+review should justify the project's direction, not merely provide background.
 
-The aim is not merely to list contributions, but to evaluate what these approaches
-actually achieve, under which assumptions they appear strongest, and where their
-weaknesses remain. In particular, we ask whether neural methods deliver genuine
-economic improvements over classical benchmarks, or whether apparent gains are
-sometimes driven by narrow simulation choices, favourable objectives, or unrealistic
-information structures.
+\litquestion{What makes hedging a more demanding application of machine learning than
+pricing alone?}
 
 % ============================================================
-% 2. CLASSICAL FOUNDATIONS: FROM REPLICATION TO IMPERFECT HEDGING
+% 2. CLASSICAL FOUNDATIONS: WHY HEDGING IS DIFFICULT IN PRACTICE
 % ============================================================
-\section{Classical Foundations: From Replication to Imperfect Hedging}
+\section{Classical Foundations: Why Hedging Is Difficult in Practice}
 \label{sec:foundations}
 
 \begin{assignbox}
@@ -175,62 +223,74 @@ information structures.
 \end{assignbox}
 
 % TODO:
-% - Black-Scholes and continuous replication, delta hedging.
-% - Discrete hedging error: Bertsimas, Kogan & Lo (2000).
-% - Model misspecification: volatility smile, Heston (1993), Leland (1985).
-% - Non-deep-learning approaches: super-replication, utility/indifference pricing,
-%   quadratic / mean-variance hedging.
-% - End by explaining why approximation methods become attractive once exact
-%   analytic solutions are unavailable.
+% - Explain Black--Scholes delta hedging as the benchmark.
+% - Explain why perfect replication breaks down in practice.
+% - Briefly classify imperfect-hedging approaches (taxonomy, not chronology).
+% - Motivate why approximation methods become attractive.
 
-\subsection{Complete-Market Hedging as the Benchmark}
+\subsection{Complete-Market Replication as the Benchmark}
 \label{subsec:bsm}
 
-% TODO: Black--Scholes, no-arbitrage pricing, delta hedging.
-% Key point: BS matters not because it is fully realistic, but because it provides
-% the canonical benchmark against which learned hedging policies are assessed.
+Classical derivative pricing theory provides the natural starting point for any
+discussion of hedging. In the Black--Scholes framework \citep{BlackScholes1973,
+Merton1973}, a contingent claim can be replicated by dynamic trading in the underlying
+asset and a riskless account, yielding both a unique no-arbitrage price and an
+associated delta-hedging strategy. This benchmark remains central in the literature
+not because it is fully realistic, but because it provides the cleanest reference
+point against which more flexible or data-driven hedging methods are evaluated.
 
-The Black--Scholes model \citep{BlackScholes1973} provides a closed-form formula for
-both the price and the delta of a European call option. Under the model's
-assumptions---constant volatility, frictionless markets, and continuous
-trading---delta hedging eliminates all risk exactly. In practice, each of these
-assumptions is violated \ldots
+% TODO: Explain the relationship between no-arbitrage pricing, replication, and delta
+% hedging. Keep the focus on why this benchmark matters for later neural-network work.
 
-\subsection{Why Imperfect Hedging Arises in Practice}
+\subsection{Why Perfect Hedging Fails Outside the Idealised Benchmark}
 \label{subsec:imperfect}
 
-% TODO: discrete rebalancing; transaction costs (Leland 1985);
-% stochastic volatility / model misspecification (Heston 1993);
-% incomplete markets; path dependence and constraints.
+The assumptions behind exact replication are restrictive. In practice, hedging is
+discrete rather than continuous, volatility is not constant, jumps and stochastic
+volatility may matter \citep{Heston1993}, market frictions such as transaction costs
+cannot be ignored \citep{Leland1985}, and markets may be incomplete. In such settings,
+there is generally no exact replicating strategy, and the hedger must choose how to
+trade off replication accuracy against other objectives such as variance, downside
+risk, or transaction cost control.
 
-\subsubsection*{Discrete rebalancing}
-% TODO: Quantify the hedging error introduced by trading only at discrete times.
+% TODO: Quantify the hedging error introduced by discrete rebalancing.
 % Cite: Bertsimas, Kogan \& Lo (2000).
 
-\subsubsection*{Transaction costs}
-% TODO: Leland (1985): transaction costs fundamentally change the optimal hedge.
-
-\subsubsection*{Model misspecification and calibration risk}
-% TODO: volatility smile, Heston (1993), local volatility (Dupire), difficulty of
-% calibrating these models accurately.
-
-\subsection{Non-Deep-Learning Approaches to Imperfect Hedging}
+\subsection{Major Classical Approaches to Imperfect Hedging}
 \label{subsec:classical_approaches}
 
-% TODO: Organise as a taxonomy -- super-replication, utility/indifference pricing,
-% quadratic hedging. For each: objective, risk notion, self-financing, strengths,
-% practical difficulties.
-%
-% Stangroom (2021) is useful here: the dissertation explicitly frames neural
-% approximation of mean-variance / quadratic hedging, and benchmarks the neural
-% approach against dynamic programming, Black--Scholes and Heston solutions.
-% Use it to motivate why analytic quadratic hedging solutions are difficult to
-% compute in practice, and why neural approximation is attractive.
+Rather than listing papers chronologically, the classical literature organises into a
+taxonomy of objectives:
+\begin{enumerate}[label=\alph*.]
+    \item \textbf{Super-replication:} eliminate short-position risk by ensuring the
+          portfolio dominates the payoff in all admissible scenarios, at the cost of
+          conservatism and often very high prices.
+    \item \textbf{Utility or indifference-based hedging:} optimise a utility or
+          certainty-equivalent criterion, making the hedger's preferences explicit but
+          also creating dependence on an often hard-to-specify utility function.
+    \item \textbf{Quadratic or mean-variance hedging:} minimise a squared
+          replication-error criterion, obtaining a mathematically tractable framework
+          that is especially relevant for later deep hedging work.
+          \citet{Stangroom2021} provides a useful departmental example of neural
+          approximation in this quadratic-hedging setting, benchmarking against
+          dynamic programming, Black--Scholes, and Heston solutions.
+\end{enumerate}
 
-\crit{This subsection should end by explaining why approximation methods, including
-neural networks, become attractive once exact analytic solutions are unavailable or
-computationally burdensome. \citet{Stangroom2021} provides a useful departmental
-example of this motivation.}
+% TODO: For each approach, answer: What is the objective? What risk notion is
+% optimised? Is the strategy self-financing? What are the strengths and practical
+% difficulties?
+
+\subsection{Why This Classical Background Matters}
+\label{subsec:classical_motivation}
+
+Once hedging is formulated as a sequential optimisation problem under imperfect market
+conditions, approximation methods become attractive. Neural networks then enter the
+literature not as replacements for classical finance, but as flexible tools for
+approximating pricing rules, sensitivities, or trading policies when the classical
+setting is no longer analytically tractable.
+
+\crit{This section should be concise. Its purpose is to motivate modern neural
+hedging, not to become a full essay on all of mathematical finance.}
 
 % ============================================================
 % 3. FROM PRICING NETWORKS TO HEDGING NETWORKS
@@ -243,115 +303,158 @@ example of this motivation.}
 \end{assignbox}
 
 % TODO:
-% - Earliest NN literature: option pricing as flexible nonlinear regression.
-%   Hedging obtained indirectly via sensitivities of the fitted pricing function.
-% - Hutchinson, Lo & Poggio (1994): seminal nonparametric pricing-and-hedging paper.
-% - Garcia & Gençay (2000): structured neural pricing with a homogeneity hint.
-% - Ruf & Wang (2020): comprehensive survey and classification framework.
-% - The limits of pricing-first hedging: differentiation amplifies noise,
-%   similar prices => different hedge policies.
-% - Direct-output hedging networks as the conceptual bridge to deep hedging.
+% - Explain the early pricing-network literature.
+% - Distinguish it from direct hedging.
+% - Prepare the reader for deep hedging.
 
 \subsection{Early Neural Networks for Derivative Pricing}
 \label{subsec:early_pricing}
 
-The earliest neural-network literature largely treated option pricing as a flexible
-nonlinear regression problem. These papers typically used option characteristics as
-inputs and either option prices or implied quantities as outputs, with hedging obtained
-indirectly through sensitivities of the fitted pricing function
-\citep{HutchinsonLoPoggio1994}.
+The earliest neural-network literature in this area largely treated derivative pricing
+as a nonlinear regression problem. Under this paradigm, the network received option
+and market variables as inputs and produced an option price as output. Hedging, if
+considered at all, was usually obtained indirectly by differentiating the learned
+pricing function with respect to the underlying state variables \citep{HutchinsonLoPoggio1994}.
 
-% TODO: Discuss Hutchinson et al. (1994) and Garcia & Gençay (2000) in depth.
-% Conceptual key point:
-%   Early neural methods learned a price first and a hedge second. This is
-%   fundamentally different from later deep hedging frameworks, which learn
-%   the trading rule directly.
+This pricing-first paradigm is historically important because it introduced
+nonparametric function approximation into derivative markets, but it differs
+fundamentally from modern deep hedging. In particular, the object learned is a pricing
+map rather than a trading policy.
 
-\subsection{The Limits of Pricing-First Hedging}
+% TODO: Discuss Hutchinson, Lo \& Poggio (1994) and Garcia \& Gen\c{c}ay (2000)
+% in depth. Garcia--Gen\c{c}ay introduced a homogeneity hint, showing that
+% domain knowledge can improve network performance.
+% Cite Ruf \& Wang (2020) as the main survey source classifying these contributions.
+
+\subsection{The Conceptual Weakness of Pricing-First Hedging}
 \label{subsec:pricing_limits}
 
-% TODO: Explain critically:
-% - a pricing model can fit prices well but still induce poor hedge ratios;
-% - differentiation amplifies noise and modelling error;
-% - similar prices can correspond to materially different hedge policies.
-% Cite: Ruf & Wang (2020).
+A central critical point must be made here: accurate pricing does not automatically
+imply accurate hedging. A network may fit option prices well while still producing
+unstable or economically poor hedge ratios when differentiated. Small errors in a
+pricing surface can translate into materially different sensitivities, and two models
+with similar pricing performance may imply meaningfully different trading strategies.
 
-\crit{Do not over-expand this subsection. Its job is to set up the conceptual jump to
-Deep Hedging and to make clear why learning the policy directly is preferable.}
+This observation is especially important in hedging problems, where the action taken
+by the trader is the hedge itself, not merely a price estimate. It therefore motivates
+the shift from learning prices to learning hedge policies directly.
 
-\subsection{Direct-Output Hedging Networks}
+% TODO: Support with evidence from Ruf \& Wang (2020). Make the transition to
+% direct policy learning explicit.
+
+\subsection{Direct Hedge-Output Approaches as the Bridge}
 \label{subsec:direct_output}
 
-% TODO: Briefly note the move toward networks that output hedge ratios directly,
-% rather than prices. Serves as a bridge into Section 4.
+Some contributions between the early pricing literature and modern deep hedging began
+to move toward networks that output sensitivities or hedge ratios directly. This is a
+useful bridge in the literature because it shows that the field gradually recognised
+that the hedge should be treated as a distinct prediction target rather than a
+by-product of a pricing model.
+
+\crit{The transition sentence at the end of this section should make it clear that
+deep hedging represents the next conceptual step: instead of learning a price or a
+Greek, the network learns a sequential trading policy.}
 
 % ============================================================
-% 4. DEEP HEDGING AS DIRECT POLICY LEARNING
+% 4. DEEP HEDGING AS THE CENTRAL MODERN FRAMEWORK
 % ============================================================
-\section{Deep Hedging as Direct Policy Learning}
-\label{sec:deep_hedging_core}
+\section{Deep Hedging as the Central Modern Framework}
+\label{sec:deep_hedging}
 
 \begin{assignbox}
-\textbf{Assignee:} \underline{\hspace{4cm}} \quad Target: $\approx 750$ words
+\textbf{Assignee:} \underline{\hspace{4cm}} \quad Target: $\approx 800$ words
 \end{assignbox}
 
 % TODO:
-% - Buehler et al. (2019): foundational paper. Describe:
-%     * NN parameterises the hedging strategy.
-%     * Objective: minimise a convex risk measure of terminal P&L.
-%     * No model assumed; only paths required.
-%     * Includes constraints (position limits, transaction costs).
-% - Why deep hedging is attractive (frictions, no closed-form needed, multi-asset).
-% - What the literature claims.
-% - CRITICAL EVALUATION: fair benchmarks? gains only with frictions? sensitivity to
-%   architecture? generalisation to real markets? interpretability?
-% - Ruf & Wang (2022) as a useful comparator.
+% - Explain Buehler et al. (2019) carefully.
+% - Describe what deep hedging learns.
+% - Explain why it is attractive.
+% - Critique it rather than merely praising it.
 
-\citet{BuehlerEtAl2019} introduce the \emph{Deep Hedging} framework, in which a
-neural network parameterises the hedging strategy and is trained over simulated or
-generated market paths. The objective is a risk functional of terminal profit and
-loss, and transaction costs and constraints can be incorporated naturally. \ldots
+\subsection{What Deep Hedging Is}
+\label{subsec:dh_core}
 
-\subsection{The Central Idea}
-\label{subsec:dh_formulation}
+The modern deep hedging literature is centred on the idea that hedging should be
+treated as a sequential decision problem. In this framework, a neural network
+parameterises the hedge policy itself. Given a market state at each trading time, the
+network outputs the hedge position, and the parameters are trained by optimising a
+chosen risk functional of terminal profit and loss over simulated or generated market
+paths \citep{BuehlerEtAl2019}.
 
-% TODO: Self-financing portfolio, discounted P&L, recurrent NN parameterisation.
-% Explain why no closed-form model is needed --- only paths.
+This formulation differs fundamentally from early pricing-network approaches because
+the learned object is the trading rule. The framework also accommodates frictions,
+constraints, and alternative objectives more naturally than the classical analytical
+benchmark.
 
-\subsection{Why Deep Hedging Is Attractive}
+% TODO: Self-financing portfolio, discounted P\&L, recurrent NN parameterisation.
+% When trained on BS paths with MSE loss, the network approximately recovers the
+% BS delta. Discuss the role of N (time steps) and M (paths).
+
+\subsection{Why the Framework Is Attractive}
 \label{subsec:dh_attractive}
 
-% TODO: frictions, multi-asset, arbitrary objectives, no formula required.
+% TODO: Expand each point into a sentence or two.
+\begin{itemize}
+    \item It can incorporate transaction costs and constraints directly into the
+          objective.
+    \item It does not require a closed-form pricing formula.
+    \item It is naturally applicable to multi-asset, path-dependent, or otherwise
+          analytically difficult settings.
+    \item It allows training directly against economically meaningful loss or risk
+          criteria.
+\end{itemize}
 
 \subsection{What the Literature Claims}
 \label{subsec:dh_claims}
 
-% TODO: performance comparable to or better than classical benchmarks;
-% flexibility under frictions; applicability beyond analytically tractable models.
+The literature commonly claims that deep hedging can match or outperform classical
+hedging rules, especially once frictions or model misspecification are present. It is
+also often presented as a flexible approximation framework for settings in which
+classical delta hedging is no longer optimal or even well-defined.
 
-\subsection{Critical Evaluation}
+% TODO: Summarise the main empirical claims without yet endorsing them uncritically.
+% Extensions: Carbonneau (2021) for long-dated FX options; Horvath et al. (2021)
+% for rough volatility; Stangroom (2021) for mean-variance objective with RNN,
+% TCN, AttentionNet and SpanMLP architectures -- RNN achieved best loss and VaR.
+
+\subsection{What Must Be Evaluated Critically}
 \label{subsec:dh_critical}
 
-% TODO: Ask --
-% - Are improvements measured under fair benchmarks?
-% - Are gains largest only when frictions or misspecification are present?
-% - How sensitive are results to architecture and training setup?
-%   Micaela's note: Stangroom (2021) compares RNN, TCN, AttentionNet and SpanMLP
-%   directly -- RNN achieves the best loss and VaR values, and performs well even
-%   with shorter input spans. This is direct evidence of architecture sensitivity.
-% - Does simulation-based training generalise to real markets?
-% - Is the learned policy interpretable?
-% Cite: Ruf & Wang (2022) as a moderating voice; Stangroom (2021) for architecture
-% comparison and benchmark design against DP / BS / Heston solutions.
+A strong literature review must ask several critical questions:
+\begin{itemize}
+    \item Is the benchmark fair? If the market truly follows Black--Scholes without
+          frictions, analytical delta hedging is already a very strong baseline.
+    \item Are the gains largest only in settings where frictions, constraints, or
+          misspecification are introduced?
+    \item Are the reported gains economically large, or merely statistically
+          detectable?
+    \item How dependent are the results on architecture, hyperparameter tuning,
+          and feature engineering? \citet{Stangroom2021} provides direct evidence
+          of architecture sensitivity: comparing RNN, TCN, AttentionNet, and SpanMLP
+          under entropic loss and mean-P\&L objectives, the RNN achieves the best
+          performance while remaining competitive even with shorter input spans.
+    \item Does simulation-based training generalise to real market data?
+    \item Is the learned strategy interpretable or stable enough for practical use?
+\end{itemize}
 
-\crit{This section should not read like ``Buehler et al.\ introduced deep hedging and
-it works well.'' It should read like an evaluation of what deep hedging solves,
-what it assumes, and when it is genuinely better than classical deltas.}
+\subsection{A Key Comparator: Simpler Models Versus Neural Networks}
+\label{subsec:dh_comparator}
+
+\citet{RufWang2022} is especially valuable because it tempers strong claims of neural
+superiority. One of the major lessons from this literature is that neural networks
+should not be treated as automatically dominant. In some settings, simpler
+regression-based methods with sensible features remain highly competitive. This forces
+benchmark discipline and helps distinguish genuine advances from over-parameterised
+enthusiasm.
+
+\crit{This section is the heart of the review. It should explain what deep hedging
+solves, what it assumes, and when it appears genuinely more compelling than classical
+hedging benchmarks.}
 
 % ============================================================
-% 5. RECENT EXTENSIONS AND EMERGING DIRECTIONS
+% 5. RECENT EXTENSIONS AND FRONTIER DIRECTIONS
 % ============================================================
-\section{Recent Extensions and Emerging Directions}
+\section{Recent Extensions and Frontier Directions}
 \label{sec:extensions}
 
 \begin{assignbox}
@@ -359,54 +462,83 @@ what it assumes, and when it is genuinely better than classical deltas.}
 \end{assignbox}
 
 % TODO: Organise by themes, NOT by publication date.
+% Compare branches rather than listing papers.
+% Show where the frontier of the field seems to be moving.
 
-\subsection{Deep Hedging under Richer Dynamics}
+\subsection{Richer Dynamics and Non-Markovian Environments}
 \label{subsec:rough_vol}
 
-% TODO: Extensions beyond simple Markovian Black--Scholes worlds.
-% Why such settings matter: they test whether network architectures can exploit
-% non-Markovian structure that classical delta formulas do not capture directly.
-% Cite: Horvath, Teichmann & Zuric (2021).
+One important direction is the extension of deep hedging beyond simple Markovian
+Black--Scholes-type worlds. \citet{HorvathTeichmannZuric2021} examine settings
+involving rough volatility or richer path structure. These contributions matter because
+they test whether neural architectures can exploit temporal information and
+non-Markovian dependence in ways that closed-form benchmarks cannot capture easily.
+
+% TODO: Explain why such settings are a genuinely harder test for neural hedgers
+% than the standard Black--Scholes case.
 
 \subsection{Reinforcement Learning Formulations}
 \label{subsec:rl}
 
-% TODO: RL branch -- when is ``deep hedging'' framed as RL vs direct empirical
-% risk minimisation? Define action/state/reward setup.
-% Cite: Du et al. (2020).
+A closely related branch frames the problem more explicitly in reinforcement-learning
+language. Here the market state is treated as the state variable, the hedge as the
+action, and the hedging objective as the reward or return criterion \citep{DuEtAl2020}.
+
+A good literature review should clarify the relationship between this branch and the
+broader deep hedging literature. In some papers the distinction is mainly one of
+language and training setup, while in others it reflects a more explicit
+control-theoretic or RL formulation.
 
 \subsection{Frictions, Constraints, and Alternative Objectives}
 \label{subsec:frictions}
 
-% TODO: Transaction costs, liquidity / market impact, risk limits,
-% alternative loss functions (CVaR, entropic risk measure).
-% Key point: the strongest case for deep hedging appears once frictions,
-% constraints, or objective misspecification enter the problem.
+For practical finance, this branch may be the most important. The strongest case for
+deep hedging arguably emerges not when analytical replication is already available,
+but when real-world features such as transaction costs, position constraints, market
+impact, or alternative risk criteria are introduced. In such settings, the flexibility
+of a learned policy becomes more valuable.
+
+% TODO: Do not merely state that frictions can be included. Explain WHY this is one
+% of the principal economic motivations for the field.
 %
 % Stangroom (2021) is directly relevant here:
 %   - Uses entropic risk measure as loss function (not just MSE).
 %   - Also studies mean P&L as an objective -- minimising expected profit and loss.
-%   - Compares four architectures (RNN, TCN, AttentionNet, SpanMLP) under these
-%     objectives; RNN achieves the best VaR values and lowest entropic loss.
-%   - Also investigates the effect of input span (number of past time steps):
-%     longer spans improve all architectures, but RNN remains competitive even
+%   - Compares RNN, TCN, AttentionNet and SpanMLP under these objectives.
+%   - RNN achieves best VaR values and lowest entropic loss.
+%   - Longer input spans improve all architectures; RNN remains competitive even
 %     with shorter spans.
-% Use this to illustrate concretely how loss function and input structure interact
-% with architecture choice.
+% Use this to illustrate how loss function and input structure interact with
+% architecture choice.
 
 \subsection{Data-Driven and Model-Free Hedging}
 \label{subsec:data_driven}
 
-% TODO: Shift from training on simulated paths from a specified model to training
-% on richer generated or market-informed scenarios.
-% Why it matters: in real markets only one realised history is observed;
-% pure model-based simulation may bake in the answer;
-% data generation is itself a major bottleneck in finance.
-% Cite: Cont (2025).
+Another frontier concerns the data on which neural hedgers are trained. Classical
+simulation-based work often trains on paths generated by a specified model such as
+Black--Scholes or Heston. This is convenient, but it can also build the answer into
+the experiment. Real markets provide only one realised history, creating a serious
+data bottleneck.
 
-\crit{This section should compare branches of the literature against one another.
-For example: is the main frontier richer models, better objectives, better
-architectures, or more realistic data generation?}
+This motivates interest in richer market generators and data-driven hedging
+frameworks, such as \citet{Cont2025}. This branch is especially relevant because it
+addresses one of the most persistent weaknesses of simulation-based finance papers:
+impressive results under synthetic data may not translate into genuine out-of-sample
+value.
+
+\subsection{The Stangroom Dissertation as a Departmental Synthesis Source}
+\label{subsec:stangroom}
+
+The UCT dissertation by \citet{Stangroom2021} is useful as a \emph{supporting
+synthesis source}, especially on deep hedging under a quadratic or mean-variance
+objective, benchmark design against dynamic programming and Heston solutions, and the
+use of pseudo-real or generated market paths. It should not replace the original
+literature, but it can help interpret how the field is operationalised in a local
+dissertation context.
+
+\crit{A high-quality review should compare these branches and ask where the field is
+really advancing: better architectures, more realistic objectives, stronger benchmarks,
+or more realistic data.}
 
 % ============================================================
 % 6. COMPARATIVE SYNTHESIS
@@ -418,38 +550,55 @@ architectures, or more realistic data generation?}
 \textbf{Assignee:} \underline{\hspace{4cm}} \quad Target: $\approx 500$ words
 \end{assignbox}
 
-% TODO: DO NOT introduce new papers here. Synthesise the literature across themes
-% along the following dimensions:
-%   - Objective: MSE, convex risk measure, daily P&L, tail risk.
-%   - Training data: BS, Heston, rough vol, generated pseudo-real, real market data.
-%   - Output: price, Greeks, direct hedge ratio, whole policy.
-%   - Benchmark: BS delta, Heston hedge, linear model, no-hedge baseline.
-%   - Frictions: absent or included.
-%   - Architecture: feedforward, semi-recurrent, recurrent, weight-sharing.
-%   - Economic significance: are reported gains material?
+% TODO: DO NOT introduce many new papers here. Synthesise the literature across
+% common dimensions. Show that the group has understood the field as a structured
+% body of work.
 
-\subsection{Comparison Dimensions}
+\subsection{Useful Comparison Dimensions}
 \label{subsec:comparison}
 
-% TODO: Write a table or structured comparison across the papers covered above.
+A clear synthesis can compare papers across the following axes:
+\begin{itemize}
+    \item \textbf{Objective:} mean squared hedging error, convex risk measure, daily
+          mark-to-market P\&L, tail-focused objective.
+    \item \textbf{Training data:} Black--Scholes simulation, Heston simulation,
+          rough-volatility paths, generated pseudo-real data, real market data.
+    \item \textbf{Output type:} option price, implied quantity, Greek, direct hedge
+          ratio, whole sequential policy.
+    \item \textbf{Benchmark:} Black--Scholes delta, Heston hedge, linear model,
+          dynamic-programming benchmark, no-hedge baseline.
+    \item \textbf{Frictions:} absent, transaction costs only, richer constraints
+          and impact.
+    \item \textbf{Architecture:} feedforward, semi-recurrent, recurrent,
+          weight-sharing, path-aware models.
+    \item \textbf{Economic significance:} whether improvements are materially
+          meaningful or only marginal.
+\end{itemize}
 
 \subsection{What the Synthesis Shows}
 \label{subsec:synthesis_findings}
 
-% TODO: Replace the prompts below with prose.
-%
-% Prompt 1: The main conceptual contribution of deep hedging is not that NNs
-% magically outperform classical finance, but that they provide a flexible
-% optimisation framework once the classical setting breaks down.
-%
-% Prompt 2: A recurring weakness is that performance gains are often demonstrated
-% under stylised simulation designs, which may favour the training objective.
-%
-% Prompt 3: Recent work therefore shifts attention from raw predictive flexibility
-% to benchmark fairness, architecture parsimony, data realism, and robustness.
+% TODO: Turn the prompts below into polished prose paragraphs.
 
-\crit{This section should sound like your group has understood the field, not merely
-read it.}
+\begin{quote}
+The literature suggests that the principal contribution of deep hedging is not that
+neural networks replace classical finance, but that they provide a flexible
+optimisation framework once the assumptions of continuous, frictionless, correctly
+specified replication are relaxed.
+\end{quote}
+
+\begin{quote}
+A recurring weakness in the literature is that gains are often demonstrated under
+stylised simulations, making it difficult to distinguish true economic advantage from
+favourable experimental design.
+\end{quote}
+
+\begin{quote}
+Recent work increasingly shifts attention away from raw predictive flexibility and
+toward benchmark fairness, realistic frictions, richer objectives, and data realism.
+\end{quote}
+
+\crit{This section should sound like interpretation, not note-taking.}
 
 % ============================================================
 % 7. RESEARCH GAP AND RELEVANCE TO THE PRESENT PROJECT
@@ -461,96 +610,143 @@ read it.}
 \textbf{Assignee:} \underline{\hspace{4cm}} \quad Target: $\approx 400$ words
 \end{assignbox}
 
-% TODO: Connect the literature directly to your project.
-% Suggested structure:
-%   1. State what the literature has already established.
-%   2. State what remains unclear, contested, or underexplored.
-%   3. Explain exactly which part your project will investigate.
+% TODO:
+% 1. Summarise what the literature has already established.
+% 2. State what remains unclear, contested, or weakly evidenced.
+% 3. Explain exactly what the present project will investigate.
 %
 % Possible gap statements:
 %   - whether neural hedging still adds value when benchmark assumptions are
 %     approximately correct;
-%   - whether gains persist under discrete trading with fair comparison to
-%     analytical deltas;
-%   - whether alternative architectures (weight-sharing, recurrent) improve
-%     generalisation;
-%   - whether deeper models help more under Heston / rough vol than under BS;
+%   - whether reported gains persist under discrete trading with fair comparison
+%     to analytical deltas;
+%   - whether alternative architectures (recurrent networks, weight sharing)
+%     improve generalisation;
+%   - whether deeper models are especially valuable under Heston / rough volatility
+%     rather than Black--Scholes;
 %   - whether the choice of loss function materially changes the learned hedge.
 
 Despite the rapid progress surveyed above, several important problems remain open
 \ldots
 
 % Template paragraph -- replace with your own:
+%
 % Overall, the literature indicates that neural-network hedging is most promising
 % when hedging is treated as a direct sequential decision problem under imperfect
-% market conditions. However, there remains uncertainty regarding the extent to
-% which reported improvements reflect genuine economic advantages rather than
-% favourable modelling assumptions, simulation design, or benchmark choice. The
-% present project contributes to this literature by \TODO{state your exact project
-% angle here}, thereby assessing \TODO{state the key question here} in a setting
-% that is directly comparable to existing deep hedging studies.
+% market conditions. However, uncertainty remains regarding the extent to which
+% reported improvements reflect genuine economic advantages rather than favourable
+% modelling assumptions, stylised simulations, or weak benchmark design. The present
+% project contributes to this literature by \TODO{state your exact project angle
+% here}, thereby assessing \TODO{state the main question here} in a setting that is
+% directly comparable to the most relevant existing work.
 
 % ============================================================
-% INTERNAL READING MAP  (delete before submission if desired)
+% INTERNAL APPENDIX: CORE PAPERS AND LINKS
+% (delete before submission if desired)
 % ============================================================
 
-\section*{Internal reading map: papers and links}
+\section*{Internal appendix: core papers and links}
+
+\subsection*{Priority reading list}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.30\textwidth}
+                  >{\raggedright\arraybackslash}p{0.64\textwidth}}
+\toprule
+Paper & Link(s) \\
+\midrule
+\endfirsthead
+\toprule
+Paper & Link(s) \\
+\midrule
+\endhead
+\citet{RufWang2020}, \emph{Neural networks for option pricing and hedging: a literature review} &
+\paperlink{arXiv}{https://arxiv.org/abs/1911.05620} \\[4pt]
+
+\citet{BuehlerEtAl2019}, \emph{Deep Hedging} &
+\paperlink{arXiv}{https://arxiv.org/abs/1802.03042};
+\paperlink{Journal page}{https://www.tandfonline.com/doi/abs/10.1080/14697688.2019.1571683} \\[4pt]
+
+\citet{HutchinsonLoPoggio1994}, \emph{A Nonparametric Approach to Pricing and Hedging Derivative Securities via Learning Networks} &
+\paperlink{NBER working paper}{https://www.nber.org/papers/w4718};
+\paperlink{Wiley page}{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.1994.tb00081.x} \\[4pt]
+
+\citet{GarciaGencay2000}, \emph{Pricing and Hedging Derivative Securities with Neural Networks and a Homogeneity Hint} &
+\paperlink{Journal page}{https://www.sciencedirect.com/science/article/abs/pii/S0304407699000184};
+\paperlink{Accessible PDF}{https://myrenegarcia.com/wp-content/uploads/2017/04/jecon2000.pdf} \\[4pt]
+
+\citet{RufWang2022}, \emph{Hedging with Linear Regressions and Neural Networks} &
+\paperlink{arXiv}{https://arxiv.org/abs/2004.08891};
+\paperlink{Journal page}{https://www.tandfonline.com/doi/abs/10.1080/07350015.2021.1931241} \\[4pt]
+
+\citet{DuEtAl2020}, \emph{Deep Reinforcement Learning for Option Replication and Hedging} &
+\paperlink{PDF}{https://cims.nyu.edu/~ritter/du2020deep.pdf};
+\paperlink{Journal page}{https://www.pm-research.com/content/iijjfds/2/4/44} \\[4pt]
+
+\citet{HorvathTeichmannZuric2021}, \emph{Deep Hedging under Rough Volatility} &
+\paperlink{arXiv}{https://arxiv.org/abs/2102.01962};
+\paperlink{MDPI page}{https://www.mdpi.com/2227-9091/9/7/138} \\[4pt]
+
+\citet{Cont2025}, \emph{Data-driven hedging with generative models} &
+\paperlink{Springer page}{https://link.springer.com/article/10.1007/s10479-025-06867-3} \\[4pt]
+
+\citet{Stangroom2021}, \emph{Deep Hedging in Incomplete Markets} (UCT MSc dissertation) &
+\paperlink{arXiv}{https://arxiv.org/abs/2112.10084} \\
+\bottomrule
+\end{longtable}
+
+\subsection*{How to use the Stangroom dissertation}
+
+Use \citet{Stangroom2021} selectively as a support source for:
+\begin{itemize}
+    \item mean-variance or quadratic hedging context,
+    \item benchmark design against dynamic programming, Black--Scholes, or Heston hedges,
+    \item architecture comparison (RNN, TCN, AttentionNet, SpanMLP) under entropic
+          loss and mean-P\&L objectives,
+    \item discussion of pseudo-real or generated market paths,
+    \item examples of how a departmental dissertation structures the story from
+          classical theory into deep hedging.
+\end{itemize}
+
+Do \textbf{not} let it replace the original literature. Treat it as a secondary
+synthesis source rather than a primary anchor citation.
+
+% ============================================================
+% INTERNAL APPENDIX: ONE-PAGE NOTE TEMPLATE
+% (copy for each paper while reading; delete before submission)
+% ============================================================
+
+\section*{Internal appendix: one-page note template for each paper}
 
 \begin{itemize}
-    \item \textbf{Survey / entry point:}
-    \begin{itemize}
-        \item \citet{RufWang2020}: \emph{Neural networks for option pricing and hedging: a literature review}
-    \end{itemize}
-
-    \item \textbf{Core deep hedging paper:}
-    \begin{itemize}
-        \item \citet{BuehlerEtAl2019}: \emph{Deep Hedging}
-    \end{itemize}
-
-    \item \textbf{Early pricing / hedging networks:}
-    \begin{itemize}
-        \item \citet{HutchinsonLoPoggio1994}: \emph{A Nonparametric Approach to Pricing and Hedging Derivative Securities via Learning Networks}
-        \item \citet{GarciaGencay2000}: \emph{Pricing and Hedging Derivative Securities with Neural Networks and a Homogeneity Hint}
-    \end{itemize}
-
-    \item \textbf{Useful critical comparator:}
-    \begin{itemize}
-        \item \citet{RufWang2022}: \emph{Hedging With Linear Regressions and Neural Networks}
-    \end{itemize}
-
-    \item \textbf{Extensions: richer dynamics / RL / data-driven hedging:}
-    \begin{itemize}
-        \item \citet{HorvathTeichmannZuric2021}: \emph{Deep Hedging under Rough Volatility}
-        \item \citet{DuEtAl2020}: \emph{Deep Reinforcement Learning for Option Replication and Hedging}
-        \item \citet{Cont2025}: \emph{Data-driven hedging with generative models}
-    \end{itemize}
-
-    \item \textbf{Departmental dissertation / supporting source:}
-    \begin{itemize}
-        \item \citet{Stangroom2021}: \emph{Deep Hedging in Incomplete Markets}
-        (UCT MSc dissertation, Dept.\ of Statistical Sciences).
-        Neural approximation of mean-variance / quadratic hedging; benchmarks
-        against DP, Black--Scholes and Heston; architecture comparison (RNN, TCN,
-        AttentionNet, SpanMLP) under entropic loss and mean-P\&L objective;
-        input span analysis. RNN achieves best loss and VaR values.
-        \emph{Role: supporting source -- benchmark design, architecture sensitivity,
-        alternative objectives. Not a primary anchor citation.}
-    \end{itemize}
+    \item \textbf{Citation:}
+    \item \textbf{One-sentence summary:}
+    \item \textbf{Problem setting:}
+    \item \textbf{Model learns:} price / Greek / hedge ratio / sequential policy
+    \item \textbf{Training data:} simulated / generated / real
+    \item \textbf{Objective:}
+    \item \textbf{Benchmark:}
+    \item \textbf{Main contribution:}
+    \item \textbf{Main limitation:}
+    \item \textbf{Why relevant to our project:}
+    \item \textbf{Which section of the literature review it belongs in:}
 \end{itemize}
 
 % ============================================================
-% FINAL CHECKLIST  (delete before submission if desired)
+% FINAL CHECKLIST
 % ============================================================
 
 \section*{Final checklist before submission}
 \begin{itemize}
-    \item Does the review use a taxonomy instead of chronology?
-    \item Does each major section contain comparison and criticism?
-    \item Does the review distinguish pricing networks from direct hedging networks?
-    \item Is Deep Hedging treated as the central framework rather than just one more paper?
-    \item Do we discuss assumptions, data generation, objectives, and benchmark fairness?
-    \item Does the last section identify a precise research gap for our project?
-    \item Is the writing coherent across sections and free from duplicated points?
+    \item Is the review broad enough for 3\,000--4\,000 words but still clearly
+          focused on hedging?
+    \item Is the structure taxonomic rather than chronological?
+    \item Does each section contain comparison, evaluation, and limitations?
+    \item Is the difference between pricing networks and direct hedging networks made
+          explicit?
+    \item Is Deep Hedging treated as the core modern framework?
+    \item Do we discuss benchmark fairness, frictions, objective choice, and data
+          realism?
+    \item Does the final section identify a precise research gap tied to our project?
+    \item Has one editor removed duplication and harmonised notation and tone?
 \end{itemize}
 
 % ============================================================
